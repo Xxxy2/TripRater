@@ -4,6 +4,7 @@ import { colors } from 'theme'
 import Home from 'scenes/home'
 import Profile from 'scenes/profile'
 import Details from 'scenes/details'
+import Login from 'scenes/login'
 import HeaderLeft from './HeaderLeft'
 import HeaderTitle from './HeaderTitle'
 
@@ -43,6 +44,24 @@ export const HomeNavigator = () => (
       component={Details}
       options={({ navigation }) => ({
         title: 'Home',
+        headerLeft: () => <HeaderLeft navigation={navigation} />,
+        headerTitle: () => <HeaderTitle />,
+      })}
+    />
+  </Stack.Navigator>
+)
+
+export const LoginNavigator = () => (
+  <Stack.Navigator
+    initialRouteName="Login"
+    headerMode="screen"
+    screenOptions={navigationProps}
+  >
+    <Stack.Screen
+      name="Login"
+      component={Login}
+      options={({ navigation }) => ({
+        title: 'Login',
         headerLeft: () => <HeaderLeft navigation={navigation} />,
         headerTitle: () => <HeaderTitle />,
       })}
