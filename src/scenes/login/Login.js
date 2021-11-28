@@ -1,65 +1,43 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  StyleSheet, Text, View, StatusBar, Button,
+  Text, View, StatusBar, Button,
 } from 'react-native'
-import { colors } from 'theme'
+
 import { TextInput } from 'react-native-gesture-handler'
 import { Formik } from 'formik'
+import * as yup from 'yup'
+import styles from './Login.styles'
 
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.lightGrayPurple,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
-  },
-  form: {
-    fontSize: 24,
-    marginBottom: 20,
-    backgroundColor: 'lime',
-  },
-
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  loginContainer: {
-    width: '80%',
-    alignItems: 'center',
-    padding: 10,
-    elevation: 10,
-    backgroundColor: '#e6e6e6',
-  },
-  textInput: {
-    height: 40,
-    width: '100%',
-    margin: 10,
-    backgroundColor: 'white',
-    borderColor: 'gray',
-    borderWidth: StyleSheet.hairlineWidth,
-    borderRadius: 10,
-  },
+const loginValidationSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email('Please enter valid email')
+    .required('Email Address is Required'),
+  password: yup
+    .string()
+    .min(8, ({ min }) => `Password must be at least ${min} characters`)
+    .required('Password is required'),
 })
 
-const Login = () => (
+const LoginScreen = () => (
   <View style={styles.root}>
     <StatusBar barStyle="light-content" />
     <Text style={styles.title}>Ekran logowania do aplikacji</Text>
     <View style={styles.loginContainer}>
       <Text>Login Screen</Text>
       <Formik
+        validationSchema={loginValidationSchema}
         initialValues={{ email: '', password: '' }}
         onSubmit={(values) => console.log(values)}
       >
         {({
-          handleChange, handleBlur, handleSubmit, values,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          values,
+          errors,
+          isValid,
         }) => (
           <>
             <TextInput
@@ -71,6 +49,9 @@ const Login = () => (
               value={values.email}
               keyboardType="email-address"
             />
+            {errors.email && (
+              <Text style={{ fontSize: 10, color: 'red' }}>{errors.email}</Text>
+            )}
             <TextInput
               name="password"
               placeholder="Password"
@@ -80,7 +61,12 @@ const Login = () => (
               value={values.password}
               secureTextEntry
             />
-            <Button onPress={handleSubmit} title="Submit" />
+            {errors.password && (
+              <Text style={{ fontSize: 10, color: 'red' }}>
+                {errors.password}
+              </Text>
+            )}
+            <Button onPress={handleSubmit} title="LOGIN" disabled={!isValid} />
           </>
         )}
       </Formik>
@@ -88,12 +74,12 @@ const Login = () => (
   </View>
 )
 
-Login.propTypes = {
+LoginScreen.propTypes = {
   navigation: PropTypes.shape({ navigate: PropTypes.func }),
 }
 
-Login.defaultProps = {
+LoginScreen.defaultProps = {
   navigation: { navigate: () => null },
 }
 
-export default Login
+export default LoginScreen
