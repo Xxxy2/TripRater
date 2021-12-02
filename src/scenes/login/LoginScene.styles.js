@@ -13,12 +13,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginBottom: 20,
   },
-  form: {
-    fontSize: 24,
-    marginBottom: 20,
-    backgroundColor: 'lime',
-  },
-
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -30,15 +24,6 @@ const styles = StyleSheet.create({
     padding: 10,
     elevation: 10,
     backgroundColor: '#e6e6e6',
-  },
-  textInput: {
-    height: 40,
-    width: '100%',
-    margin: 10,
-    backgroundColor: 'white',
-    borderColor: 'gray',
-    borderWidth: StyleSheet.hairlineWidth,
-    borderRadius: 10,
   },
 })
 export default styles
