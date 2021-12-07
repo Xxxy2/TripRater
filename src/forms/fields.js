@@ -1,10 +1,22 @@
 const fields = {
   email: {
-    name: 'login-email',
+    name: 'email',
     initialValue: '',
   },
   password: {
-    name: 'login-password',
+    name: 'password',
+    initialValue: '',
+  },
+  nick: {
+    name: 'nick',
+    initialValue: '',
+  },
+  phone: {
+    name: 'phone-number',
+    initialValue: '',
+  },
+  confpassword: {
+    name: 'confirm-password',
     initialValue: '',
   },
 }

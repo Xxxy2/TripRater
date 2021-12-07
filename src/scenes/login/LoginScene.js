@@ -1,7 +1,7 @@
 import React from 'react'
 import { StatusBar, View, Text } from 'react-native'
 import SceneLayout from 'layouts/SceneLayouts'
-import LoginForm from 'forms/LoginForm'
+import LoginForm from '../../forms/login/LoginForm'
 import styles from './LoginScene.styles'
 
 const LoginScene = () => (
