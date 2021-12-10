@@ -5,7 +5,7 @@ import {
 } from 'react-native'
 import Button from 'components/Button'
 import { colors } from 'theme'
-import useJokes from '../../slices/useJokes'
+import useJokes from 'modules/posts/useJokes'
 
 const styles = StyleSheet.create({
   root: {

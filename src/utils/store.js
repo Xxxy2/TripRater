@@ -5,7 +5,7 @@ import {
 } from '@reduxjs/toolkit'
 import logger from 'redux-logger'
 import appReducer from 'slices/app.slice'
-import jokeSlice from 'slices/jokeSlice'
+import jokeSlice from 'modules/posts/jokeSlice'
 
 const rootReducer = combineReducers({
   app: appReducer,

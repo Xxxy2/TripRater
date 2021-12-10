@@ -14,6 +14,8 @@ module.exports = (api) => {
             slices: './src/slices',
             forms: './src/forms',
             layouts: './src/layouts',
+            modules: './src/modules',
+            clients: './src/clients',
           },
         },
       ],

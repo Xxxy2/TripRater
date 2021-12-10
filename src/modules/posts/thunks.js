@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import jokesService from '../scenes/home/JokeService'
+import jokesService from 'clients/coreApiClient/services/jokeService'
 /* eslint-disable import/prefer-default-export */
 export const getPostsThunk = createAsyncThunk('posts/getPosts', async () => {
   const result = await jokesService.fetchPosts()

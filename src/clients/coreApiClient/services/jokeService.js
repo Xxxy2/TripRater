@@ -10,8 +10,3 @@ class JokesService {
 const jokesService = new JokesService()
 
 export default jokesService
-
-// const fetchData = async () => {
-//  const result = await axios(
-//   'https://api.chucknorris.io/jokes/random',
-//  );
