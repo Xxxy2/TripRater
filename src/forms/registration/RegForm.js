@@ -4,7 +4,7 @@ import { Button } from 'react-native'
 import { Formik } from 'formik'
 import TextInputField from 'components/TextInputField'
 import regSchema from './regSchema'
-import fields from '../fields'
+import fields from './fields'
 
 const RegForm = () => (
   <Formik
