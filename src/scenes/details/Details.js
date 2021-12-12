@@ -22,10 +22,14 @@ const styles = StyleSheet.create({
 
 const Details = ({ route, navigation }) => {
   const from = route?.params?.from
+  const id = route?.params?.homeId
   return (
     <View style={styles.root}>
       <StatusBar barStyle="light-content" />
-      <Text style={styles.title}>{`Details (from ${from})`}</Text>
+      <Text
+        style={styles.title}
+      >{`Details (from ${from} )przekazane id:${id},`}
+      </Text>
       <Button
         title="Go Back"
         color="white"

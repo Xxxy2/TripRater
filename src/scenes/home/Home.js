@@ -1,61 +1,63 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import {
-  StyleSheet, Text, View, StatusBar,
+  Text,
+  View,
+  FlatList,
+  SafeAreaView,
+  Image,
+  TouchableOpacity,
 } from 'react-native'
-import Button from 'components/Button'
-import { colors } from 'theme'
 import useJokes from 'modules/posts/useJokes'
+import styles from './Home.styles'
 
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.lightGrayPurple,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
-  },
-})
-
-const Home = () => {
-  const [data] = useState({ hits: [] })
+const Item = ({
+  title, thumbnailUrl, id, navigation,
+}) => (
+  <TouchableOpacity
+    onPress={() => {
+      navigation.navigate('Details', {
+        from: 'Home',
+        homeId: id,
+        homeTitle: title,
+      })
+    }}
+    style={[styles.item]}
+  >
+    <View style={styles.item}>
+      <Text style={styles.title}>{id}</Text>
+      <Image source={{ uri: thumbnailUrl }} style={{ width: 50, height: 50 }} />
+      <Text style={styles.title}>{title}</Text>
+    </View>
+  </TouchableOpacity>
+)
+const Home = ({ navigation }) => {
+  // const [] = useState({ hits: [] })
 
   const {
     posts,
-    actions: { getJokes },
+    actions: { getPosts },
   } = useJokes()
   useEffect(() => {
-    getJokes()
+    getPosts()
   }, [])
-  console.log(posts)
+
+  const renderItem = ({ item }) => (
+    <Item
+      title={item.title}
+      id={item.id}
+      thumbnailUrl={item.thumbnailUrl}
+      navigation={navigation}
+    />
+  )
   return (
-    <View style={styles.root}>
-      <StatusBar barStyle="light-content" />
-      <Text style={styles.title}>{data.value}</Text>
-      <Button
-        title="refresh"
-        color="white"
-        backgroundColor={colors.lightPurple}
-        onPress={() => {}}
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={posts}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
       />
-      {posts.map((item) => (
-        <Text style={styles.title}>{item.title}</Text>
-      ))}
-      <Text style={styles.title}>test1</Text>
-      <Text style={styles.title}>{data.id}</Text>
-      <Text style={styles.title}>{data.title}</Text>
-      <Text style={styles.title}>{data.body}</Text>
-      <Button
-        title="next"
-        color="white"
-        backgroundColor={colors.lightPurple}
-        onPress={() => {}}
-      />
-    </View>
+    </SafeAreaView>
   )
 }
 

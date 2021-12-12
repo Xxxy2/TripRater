@@ -11,7 +11,7 @@ const fields = {
     name: 'nick',
     initialValue: '',
   },
-  phone: {
+  phoneNumber: {
     name: 'phone-number',
     initialValue: '',
   },

@@ -2,13 +2,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getPostsThunk } from './thunks'
 import { selectPosts } from './selectors'
 
-const useJokes = () => {
+const usePosts = () => {
   const dispatch = useDispatch()
   const posts = useSelector(selectPosts)
-  const getJokes = () => {
+  const getPosts = () => {
     dispatch(getPostsThunk())
   }
-  return { posts, actions: { getJokes } }
-}
+  const getPostById = (currentId) => posts.find(({ id }) => id === currentId)
 
-export default useJokes
+  return { posts, actions: { getPosts, getPostById } }
+}
+// todo funkcja zwracajaca posta o danym ID
+export default usePosts

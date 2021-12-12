@@ -1,20 +1,16 @@
-import { object, yup } from 'yup'
+import { object, string, ref } from 'yup'
 
 const regSchema = object().shape({
-  fullName: yup
-    .string()
+  fullName: string()
     .matches(/(\w.+\s).+/, 'Enter at least 2 names')
     .required('Full name is required'),
-  phoneNumber: yup
-    .string()
+  phoneNumber: string()
     .matches(/(01)(\d){8}\b/, 'Enter a valid phone number')
     .required('Phone number is required'),
-  email: yup
-    .string()
+  email: string()
     .email('Please enter valid email')
     .required('Email is required'),
-  password: yup
-    .string()
+  password: string()
     .matches(/\w*[a-z]\w*/, 'Password must have a small letter')
     .matches(/\w*[A-Z]\w*/, 'Password must have a capital letter')
     .matches(/\d/, 'Password must have a number')
@@ -24,9 +20,8 @@ const regSchema = object().shape({
     )
     .min(8, ({ min }) => `Password must be at least ${min} characters`)
     .required('Password is required'),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref('password')], 'Passwords do not match')
+  confirmPassword: string()
+    .oneOf([ref('password')], 'Passwords do not match')
     .required('Confirm password is required'),
 })
 
