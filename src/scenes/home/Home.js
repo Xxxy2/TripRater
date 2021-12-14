@@ -3,15 +3,18 @@ import PropTypes from 'prop-types'
 import {
   Text,
   View,
-  FlatList,
+  VirtualizedList,
   SafeAreaView,
   Image,
   TouchableOpacity,
 } from 'react-native'
 import useJokes from 'modules/posts/useJokes'
+
 import styles from './Home.styles'
 
-const Item = ({
+const INITIAL_NUMBER_ITEMS_TO_RENDER = 9
+
+const ListItem = ({
   title, thumbnailUrl, id, navigation,
 }) => (
   <TouchableOpacity
@@ -31,31 +34,41 @@ const Item = ({
     </View>
   </TouchableOpacity>
 )
-const Home = ({ navigation }) => {
-  // const [] = useState({ hits: [] })
 
+const Home = ({ navigation }) => {
   const {
     posts,
     actions: { getPosts },
   } = useJokes()
+
   useEffect(() => {
     getPosts()
   }, [])
 
-  const renderItem = ({ item }) => (
-    <Item
-      title={item.title}
-      id={item.id}
-      thumbnailUrl={item.thumbnailUrl}
-      navigation={navigation}
-    />
-  )
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
+      <VirtualizedList
         data={posts}
-        renderItem={renderItem}
+        initialNumToRender={INITIAL_NUMBER_ITEMS_TO_RENDER}
+        renderItem={({ item }) => (
+          <ListItem
+            id={item.id}
+            title={item.title}
+            thumbnailUrl={item.thumbnailUrl}
+            navigation={navigation}
+          />
+        )}
         keyExtractor={(item) => item.id}
+        getItemCount={(data) => data.length}
+        getItem={(data, index) => {
+          const currentItem = data[index]
+
+          return {
+            id: currentItem.id,
+            title: currentItem.title,
+            thumbnailUrl: currentItem.thumbnailUrl,
+          }
+        }}
       />
     </SafeAreaView>
   )
