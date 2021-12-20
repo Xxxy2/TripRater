@@ -1,12 +1,12 @@
 import axios from 'axios'
 
 const baseurl = 'https://jsonplaceholder.typicode.com/photos/'
-class PostsService {
+class AdvertisementsService {
   fetchPostById = (id) => axios.get(`${baseurl}${id}`)
 
   fetchPosts = () => axios.get(baseurl)
 }
 
-const jokesService = new PostsService()
+const advertisementsService = new AdvertisementsService()
 
-export default jokesService
+export default advertisementsService

@@ -1,9 +1,9 @@
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit'
 import { getPostsThunk } from './thunks'
 
-const jokeAdapter = createEntityAdapter()
-const initialState = jokeAdapter.getInitialState()
-const jokeSlice = createSlice({
+const advertisementAdapter = createEntityAdapter()
+const initialState = advertisementAdapter.getInitialState()
+const advertisementSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {},
@@ -13,7 +13,7 @@ const jokeSlice = createSlice({
     },
     [getPostsThunk.fulfilled]: (state, { payload }) => {
       // state.loading = false
-      jokeAdapter.addMany(state, payload.data)
+      advertisementAdapter.addMany(state, payload.data)
     },
     [getPostsThunk.rejected]: () => {
       // state.loading = false
@@ -21,6 +21,6 @@ const jokeSlice = createSlice({
   },
 })
 
-export const { action } = jokeSlice
+export const { action } = advertisementSlice
 
-export default jokeSlice
+export default advertisementSlice

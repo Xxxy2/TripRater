@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import jokesService from 'clients/coreApiClient/services/jokeService'
+import advertisementsService from 'clients/coreApiClient/services/advertisementService'
 /* eslint-disable import/prefer-default-export */
 export const getPostsThunk = createAsyncThunk('posts/getPosts', async () => {
-  const result = await jokesService.fetchPosts()
+  const result = await advertisementsService.fetchPosts()
   return result
 })

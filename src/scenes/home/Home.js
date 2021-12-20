@@ -8,7 +8,7 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native'
-import useJokes from 'modules/posts/useJokes'
+import usePosts from 'modules/posts/usePosts'
 
 import styles from './Home.styles'
 
@@ -39,7 +39,7 @@ const Home = ({ navigation }) => {
   const {
     posts,
     actions: { getPosts },
-  } = useJokes()
+  } = usePosts()
 
   useEffect(() => {
     getPosts()
