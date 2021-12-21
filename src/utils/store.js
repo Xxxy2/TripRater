@@ -5,9 +5,11 @@ import {
 } from '@reduxjs/toolkit'
 import logger from 'redux-logger'
 import appReducer from 'slices/app.slice'
+import advertisementSlice from 'modules/posts/advertisementSlice'
 
 const rootReducer = combineReducers({
   app: appReducer,
+  posts: advertisementSlice.reducer,
   // add more reducers
 })
 

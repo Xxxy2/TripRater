@@ -5,6 +5,7 @@ import Home from 'scenes/home'
 import Profile from 'scenes/profile'
 import Details from 'scenes/details'
 import Login from 'scenes/login'
+import RegScene from 'scenes/registration'
 import HeaderLeft from './HeaderLeft'
 import HeaderTitle from './HeaderTitle'
 
@@ -65,6 +66,13 @@ export const LoginNavigator = () => (
         headerLeft: () => <HeaderLeft navigation={navigation} />,
         headerTitle: () => <HeaderTitle />,
       })}
+    />
+    <Stack.Screen
+      name="RegScene"
+      component={RegScene}
+      options={{
+        title: 'RegScene',
+      }}
     />
   </Stack.Navigator>
 )

@@ -1,40 +1,76 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import {
-  StyleSheet, Text, View, StatusBar,
+  Text,
+  View,
+  VirtualizedList,
+  SafeAreaView,
+  Image,
+  TouchableOpacity,
 } from 'react-native'
-import Button from 'components/Button'
-import { colors } from 'theme'
+import usePosts from 'modules/posts/usePosts'
 
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.lightGrayPurple,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
-  },
-})
+import styles from './Home.styles'
+
+const INITIAL_NUMBER_ITEMS_TO_RENDER = 9
+
+const ListItem = ({
+  title, thumbnailUrl, id, navigation,
+}) => (
+  <TouchableOpacity
+    onPress={() => {
+      navigation.navigate('Details', {
+        from: 'Home',
+        homeId: id,
+        homeTitle: title,
+      })
+    }}
+    style={[styles.item]}
+  >
+    <View style={styles.item}>
+      <Text style={styles.title}>{id}</Text>
+      <Image source={{ uri: thumbnailUrl }} style={{ width: 50, height: 50 }} />
+      <Text style={styles.title}>{title}</Text>
+    </View>
+  </TouchableOpacity>
+)
 
 const Home = ({ navigation }) => {
-  console.log('123456', navigation)
+  const {
+    posts,
+    actions: { getPosts },
+  } = usePosts()
+
+  useEffect(() => {
+    getPosts()
+  }, [])
+
   return (
-    <View style={styles.root}>
-      <StatusBar barStyle="light-content" />
-      <Text style={styles.title}>Home</Text>
-      <Button
-        title="Go to Details"
-        color="white"
-        backgroundColor={colors.lightPurple}
-        onPress={() => {
-          navigation.navigate('Details', { from: 'Home' })
+    <SafeAreaView style={styles.container}>
+      <VirtualizedList
+        data={posts}
+        initialNumToRender={INITIAL_NUMBER_ITEMS_TO_RENDER}
+        renderItem={({ item }) => (
+          <ListItem
+            id={item.id}
+            title={item.title}
+            thumbnailUrl={item.thumbnailUrl}
+            navigation={navigation}
+          />
+        )}
+        keyExtractor={(item) => item.id}
+        getItemCount={(data) => data.length}
+        getItem={(data, index) => {
+          const currentItem = data[index]
+
+          return {
+            id: currentItem.id,
+            title: currentItem.title,
+            thumbnailUrl: currentItem.thumbnailUrl,
+          }
         }}
       />
-    </View>
+    </SafeAreaView>
   )
 }
 
